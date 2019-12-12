@@ -1,0 +1,26 @@
+{
+  "name": "sicon-app-store-deploy",
+  "version": "1.0.0",
+  "description": "Scripts to deploy new app versions to exa store",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GPS-GmbH/sicon-app-store-deploy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GPS-GmbH/sicon-app-store-deploy/issues"
+  },
+  "homepage": "https://github.com/GPS-GmbH/sicon-app-store-deploy#readme",
+  "dependencies": {
+    "get-stdin": "^7.0.0",
+    "meow": "^6.0.0",
+    "ramda": "^0.26.1",
+    "strapi-sdk-javascript": "^0.3.3"
+  }
+}
