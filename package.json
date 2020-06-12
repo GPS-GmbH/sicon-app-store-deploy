@@ -1,6 +1,6 @@
 {
   "name": "sicon-app-store-deploy",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "CLI to read and publish apps for the sicon app store",
   "main": "lib/index.js",
   "bin": {
