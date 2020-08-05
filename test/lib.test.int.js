@@ -48,6 +48,7 @@ test.serial('get specific version', async t => {
     const release10 = await sicon.getVersion('r0.10.0')
     t.true('changelog' in release10)
     t.true('name' in release10)
+    t.true('id' in release10)
 })
 
 test.serial('get specific version from local cache', async t => {
