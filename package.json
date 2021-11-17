@@ -2,9 +2,10 @@
   "name": "sicon-app-store-deploy",
   "version": "1.2.3",
   "description": "CLI to read and publish apps for the sicon app store",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "files": ["dist", "package.json"],
   "bin": {
-    "siconstore": "./lib/cli.js"
+    "siconstore": "./dist/cli.js"
   },
   "scripts": {
     "test": "ENV=development nyc --reporter=html --reporter=text ava **/*.test.*.js",
@@ -17,6 +18,19 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GPS-GmbH/sicon-app-store-deploy.git"
+  },
+  "ava": {
+    "files": [
+      "**/*.test.*.ts"
+    ],
+    "concurrency": 10,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register/transpile-only",
+      "tsconfig-paths/register"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -33,7 +47,13 @@
     "strapi-sdk-javascript": "^0.3.3"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^16.11.7",
+    "@types/ramda": "^0.27.49",
     "ava": "^2.4.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.11.0",
+    "typescript": "^4.4.4"
   }
 }

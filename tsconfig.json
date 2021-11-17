@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "target": "es5",
+        "declaration": true,
+        "sourceMap": true,
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "types": [
+            "node"
+        ],
+        "lib": [
+            "ES2021"
+        ]
+    },
+    "exclude": [
+        "**/*.test.*",
+        "node_modules",
+        "dist"
+    ],
+}
