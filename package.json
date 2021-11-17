@@ -8,6 +8,7 @@
     "siconstore": "./dist/cli.js"
   },
   "scripts": {
+    "build": "rm -rf dist && tsc",
     "test": "ENV=development nyc --reporter=html --reporter=text ava **/*.test.*.js",
     "test:unit": "ENV=development ava **/*.test.unit.js",
     "test:unit:verbose": "ENV=development nyc --reporter=html --reporter=text ava **/*.test.unit.js --verbose",

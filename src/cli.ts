@@ -1,12 +1,13 @@
 #!/usr/bin/env node
+//@ts-nocheck
+import * as getStdin from 'get-stdin'
+import * as meow from 'meow'
+import { Version } from './app-store'
 
-const getStdin = require('get-stdin')
-const meow = require('meow')
+import { getAppByEnvironment } from '.'
 
-const { getAppByEnvironment } = require('.')
-
-const print = o => console.log(JSON.stringify(o, 4, null))
-const printError = e => console.error(process.env.DEBUG ? e : e.message)
+const print = (o: any) => console.log(JSON.stringify(o, 4, null))
+const printError = (e: Error | any) => console.error(process.env.DEBUG ? e : e.message)
 
 const siconstore = () => ({
     cli: meow(`
@@ -17,7 +18,7 @@ const siconstore = () => ({
         $ siconstore publish
         $ siconstore latest
     `),
-    action: cli => cli.showHelp(),
+    action: (cli: meow.Result<any>) => cli.showHelp(),
 })
 
 siconstore.publish = () => ({
@@ -47,16 +48,16 @@ siconstore.publish = () => ({
             }' | siconstore publish a-company/a-container
         
     `),
-    action: async cli => {
+    action: async (cli: meow.Result<any>) => {
         const [, app] = cli.input
         if (!app || !process.env.APPSTORE_LOGIN_USERNAME || !process.env.APPSTORE_LOGIN_PASSWORD) return cli.showHelp()
         const stdin = await getStdin() || {}
-        const version = { ...stdin, ...cli.flags }
+        const version = { ...stdin, ...cli.flags } as Version
         if (!(version && version.name && version.dockerTag && version.maturity)) return cli.showHelp()
         try {
             await getAppByEnvironment(app).publishVersion(version)
         } catch (error) {
-            printError(error)            
+            printError(error)
         }
     }
 })
@@ -80,7 +81,7 @@ siconstore.latest = () => ({
             }
         }
     }),
-    action: async cli => {
+    action: async (cli: meow.Result<any>) => {
         const [, app] = cli.input
         if (!app) return cli.showHelp()
         const { maturity } = cli.flags 
@@ -96,13 +97,13 @@ siconstore.latest = () => ({
 const prop = k => o => o[k]
 const pipe = (...fns) => x => [...fns].reduce((acc, f) => f(acc), x)
 
-const getSubcommand = (cliObject, level) => pipe(
+const getSubcommand = (cliObject: typeof siconstore, level: number) => pipe(
     prop('input'),
     prop(level),
     name => prop(name)(cliObject),
 )(prop('cli')(cliObject()))
 
-const cli = (cliObject, level = 0) => {
+const cli = (cliObject: typeof siconstore, level = 0) => {
     const { cli: nextCli, action } = cliObject()
     const subCommand = getSubcommand(cliObject, level)
     return subCommand ? 
